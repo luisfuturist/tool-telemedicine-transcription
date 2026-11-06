@@ -90,6 +90,16 @@ edição > tempo de digitação, morre.
 - **Moat**: não é tech (tudo é commodity) — é canal + contexto
   acumulado do paciente entre consultas + embedding no workflow.
 
+## Sinal de validação (2026-11-06)
+
+Entrevistas informais: médicos dizem "relevante", JÁ TESTARAM
+concorrentes (provável gringo, USD) e acharam caro. Leitura: dor
+real + consciência de mercado + sensibilidade a preço = abertura
+pra undercut local (R$99–149 vs. ~R$500+ dos gringos). Ainda não é
+prova de compra — validar via piloto: 2 semanas grátis com os
+mesmos médicos, perguntando (1) qual concorrente testaram,
+(2) preço+idioma ou só preço foi o problema, (3) quanto pagariam.
+
 ## Decisões abertas
 
 1. **Especialidade do MVP** — a que tivermos acesso a médicos reais.
