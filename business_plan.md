@@ -17,8 +17,8 @@ conduta) → médico revisa e aprova → exporta pra prontuário/EMR.
 
 ## Quem paga
 
-- **MVP**: médico individual (B2C) — self-serve, sobe áudio / grava
-  consulta no app
+- **MVP**: médico individual (B2C) — self-serve, modelo Freed
+  (~R$99–149/mês, product-led, CAC baixo)
 - **Alvo**: clínicas pequenas/médias (B2B) — assinatura por cadeira
 
 ## Concorrência
@@ -75,10 +75,25 @@ médicos pagantes.
 10 médicos usando por 2 semanas: se ninguém paga, ou se tempo de
 edição > tempo de digitação, morre.
 
+## Decisões (2026-11-06)
+
+- **Modelo**: Freed — self-serve, médico individual, product-led.
+- **Posicionamento**: ferramenta de documentação, NUNCA suporte à
+  decisão — toda anamnese é rascunho revisado/aprovado pelo médico.
+  Fora de SaMD/ANVISA; human-in-the-loop é o escudo de liability.
+- **Telemedicina-first**: teleconsulta é o modo fácil — canais de
+  áudio por participante = speaker labels grátis (diarização
+  resolvida) + bot visível = consentimento embutido.
+- **Presencial = modo ditado**: médico narra sozinho pós-consulta
+  (mono-falante — Web Speech basta). Diarização em mic único é
+  problema conhecido e NÃO prioridade.
+- **Moat**: não é tech (tudo é commodity) — é canal + contexto
+  acumulado do paciente entre consultas + embedding no workflow.
+
 ## Decisões abertas
 
 1. **Especialidade do MVP** — a que tivermos acesso a médicos reais.
 2. **LGPD como feature** — auditável/on-prem desde o dia 1, ou
    compliance mínimo no MVP?
-3. **Stack de transcrição** — Whisper API vs. Deepgram vs.
-   self-hosted (custo × latência × privacidade).
+3. **Stack de transcrição** — bot teleconsulta (Recall.ai) vs.
+   upload+Whisper vs. Deepgram com diarização.
