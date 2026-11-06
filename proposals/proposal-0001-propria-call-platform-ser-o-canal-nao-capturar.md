@@ -50,3 +50,15 @@ link; se não, scribe-alongside é o teto.
 1. validar via piloto (pergunta do link)
 2. call audio-only 1:1 (LiveKit/vonage voice) + scribe por perna
 3. vídeo opcional + scheduling + waiting room + prontuário
+
+## Posicionamento (2026-11-06)
+
+Não inovar na call — call é commodity por design, genérica-e-
+confiável é o objetivo. A inovação é o que a call PRODUZ: a call
+alheia termina em silêncio documental; a nossa termina com a
+anamnese revisada. Diferenciais: pré-consulta assíncrona (triagem
+por chat → anamnese pré-preenchida), assist durante a call,
+contexto longitudinal por paciente (moat que compõe), e
+transcrição+evidência como registro jurídico. Framing:
+"telemedicina genérica por fora, documentação inteligente por
+dentro" — a call é o gancho, o registro é o negócio.
