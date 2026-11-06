@@ -37,8 +37,16 @@ scribe-alongside como wedge → se piloto mostrar que médico topa
 mandar NOSSO link em vez do link do Meet, a plataforma vence.
 Pergunta de validação nas entrevistas: "mandaria nosso link?"
 
+## Veredito (2026-11-06)
+
+Endgame, não wedge. Risco: video call é problema impiedoso — se
+cai, a culpa é nossa. Mitigação: **audio-only first** (voz sem
+vídeo — muita anamnese não precisa de vídeo, 10x mais confiável/
+barata de operar). Gate: piloto confirma que médico manda nosso
+link; se não, scribe-alongside é o teto.
+
 ## Fases
 
 1. validar via piloto (pergunta do link)
-2. sala WebRTC 1:1 (LiveKit) + scribe nativo por perna
-3. scheduling + waiting room + prontuário embutido
+2. call audio-only 1:1 (LiveKit/vonage voice) + scribe por perna
+3. vídeo opcional + scheduling + waiting room + prontuário
