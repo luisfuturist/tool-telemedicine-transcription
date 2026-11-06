@@ -1,7 +1,7 @@
 name = "anamnese"
 
 [next]
-t = 5
+t = 6
 i = 1
 p = 1
 adr = 1
