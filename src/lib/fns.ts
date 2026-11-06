@@ -4,6 +4,8 @@ import { and, desc, eq } from "drizzle-orm";
 import { db } from "#/db/index.ts";
 import { consultations, patients } from "#/db/schema.ts";
 import { type Anamnesis, extractAnamnesis } from "#/lib/anamnese/index.ts";
+import { reviewAnamnesis } from "#/lib/anamnese/review.ts";
+import type { AnamnesisReview } from "#/lib/anamnese/types.ts";
 import { ensureSessionUser, getSessionUser, signIn } from "#/lib/auth.ts";
 
 export const getSessionUserFn = createServerFn({ method: "GET" }).handler(() =>
@@ -21,6 +23,11 @@ export const signInFn = createServerFn({ method: "POST" })
 export const extractAnamneseFn = createServerFn({ method: "POST" })
 	.validator((transcript: string) => transcript)
 	.handler(({ data: transcript }) => extractAnamnesis(transcript));
+
+/** Second opinion (stronger model): gaps, hypotheses, red flags. */
+export const reviewAnamneseFn = createServerFn({ method: "POST" })
+	.validator((input: { transcript: string; anamnesis: Anamnesis }) => input)
+	.handler(({ data }) => reviewAnamnesis(data.transcript, data.anamnesis));
 
 // ---------- patients ----------
 
@@ -52,6 +59,7 @@ export const saveConsultationFn = createServerFn({ method: "POST" })
 			anamnesis: Anamnesis;
 			engine: string;
 			patientId?: number;
+			review?: AnamnesisReview | null;
 		}) => input,
 	)
 	.handler(async ({ data }) => {
@@ -64,6 +72,7 @@ export const saveConsultationFn = createServerFn({ method: "POST" })
 				transcript: data.transcript,
 				anamnesis: JSON.stringify(data.anamnesis),
 				engine: data.engine,
+				review: data.review ? JSON.stringify(data.review) : null,
 				createdAt: new Date(),
 			})
 			.returning({ id: consultations.id });
@@ -74,19 +83,41 @@ export const listConsultationsFn = createServerFn({ method: "GET" }).handler(
 	async () => {
 		const user = await getSessionUser();
 		if (!user) return [];
-		return db
+		const rows = await db
 			.select({
 				id: consultations.id,
 				engine: consultations.engine,
 				createdAt: consultations.createdAt,
 				transcript: consultations.transcript,
 				source: consultations.source,
+				status: consultations.status,
+				consentAt: consultations.consentAt,
+				anamnesis: consultations.anamnesis,
+				review: consultations.review,
 				patientName: patients.name,
 			})
 			.from(consultations)
 			.leftJoin(patients, eq(consultations.patientId, patients.id))
 			.where(eq(consultations.userId, user.id))
 			.orderBy(desc(consultations.id));
+		return rows.map(({ anamnesis, review, ...c }) => {
+			let queixa: string | null = null;
+			if (anamnesis) {
+				try {
+					queixa =
+						(JSON.parse(anamnesis) as Anamnesis).queixa_principal?.content ??
+						null;
+				} catch {
+					queixa = null;
+				}
+			}
+			return {
+				...c,
+				hasAnamnesis: anamnesis !== null,
+				hasReview: review !== null,
+				queixa,
+			};
+		});
 	},
 );
 
@@ -108,6 +139,9 @@ export const getConsultationFn = createServerFn({ method: "GET" })
 			patientName: row.patientName,
 			anamnesis: row.c.anamnesis
 				? (JSON.parse(row.c.anamnesis) as Anamnesis)
+				: null,
+			review: row.c.review
+				? (JSON.parse(row.c.review) as AnamnesisReview)
 				: null,
 		};
 	});
@@ -135,6 +169,7 @@ export const attachAnamnesisFn = createServerFn({ method: "POST" })
 			anamnesis: Anamnesis;
 			engine: string;
 			patientId?: number;
+			review?: AnamnesisReview | null;
 		}) => input,
 	)
 	.handler(async ({ data }) => {
@@ -145,6 +180,7 @@ export const attachAnamnesisFn = createServerFn({ method: "POST" })
 			.set({
 				anamnesis: JSON.stringify(data.anamnesis),
 				engine: data.engine,
+				review: data.review ? JSON.stringify(data.review) : null,
 				patientId: data.patientId ?? null,
 				status: "done",
 			})

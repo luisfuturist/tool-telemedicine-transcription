@@ -43,3 +43,36 @@ export interface AnamnesisExtractor {
 	readonly name: string;
 	extract(transcript: string): Promise<Anamnesis>;
 }
+
+// ---------- second-opinion review ----------
+
+/** A piece of information the consult did not capture. */
+export interface ReviewGap {
+	secao: AnamnesisSectionKey;
+	o_que_falta: string;
+	/** Question the doctor could still ask the patient. */
+	pergunta_sugerida: string;
+	/** Why it matters clinically. */
+	motivo: string;
+}
+
+export interface ReviewHypothesis {
+	diagnostico: string;
+	probabilidade: Confidence;
+	raciocinio: string;
+	/** Verbatim transcript sentences supporting this hypothesis. */
+	evidence: string[];
+	/** Exams/steps that would confirm or exclude it. */
+	investigar: string[];
+}
+
+/**
+ * Second pass by a stronger model. NEVER merged into the anamnese
+ * silently: it is decision support, the doctor accepts item by item.
+ */
+export interface AnamnesisReview {
+	lacunas: ReviewGap[];
+	hipoteses: ReviewHypothesis[];
+	sinais_de_alerta: string[];
+	inconsistencias: string[];
+}

@@ -25,6 +25,8 @@ export const consultations = sqliteTable("consultations", {
 	transcript: text().notNull(),
 	/** Serialized Anamnesis (structured, reviewed/editable). */
 	anamnesis: text(),
+	/** Serialized AnamnesisReview (second opinion — decision support). */
+	review: text(),
 	/** Which AnamnesisExtractor produced the draft. */
 	engine: text(),
 	/** Transcription source: browser | bot | dictation | upload. */
