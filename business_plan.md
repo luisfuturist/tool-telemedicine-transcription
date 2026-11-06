@@ -100,6 +100,17 @@ prova de compra — validar via piloto: 2 semanas grátis com os
 mesmos médicos, perguntando (1) qual concorrente testaram,
 (2) preço+idioma ou só preço foi o problema, (3) quanto pagariam.
 
+## Pesquisa de canal (2026-11-06)
+
+Realidade BR: WhatsApp domina o atendimento remoto (~69% dos
+médicos — APM) e é INCAPTURÁVEL (sem bot, sem aba). Browser-based
+calls (Meet/Zoom/Doctoralia-vídeo) são minoria capturável por
+tab audio/bot. Consequência: ditado pós-consulta + upload de
+gravação viram o caminho primário; tab audio/bot cobrem o
+segmento browser. A integração de rotina decisiva é "copiar pro
+EMR" (clipboard), não API. Pergunta-chave do piloto: "em que app
+roda a consulta?"
+
 ## Decisões abertas
 
 1. **Especialidade do MVP** — a que tivermos acesso a médicos reais.
