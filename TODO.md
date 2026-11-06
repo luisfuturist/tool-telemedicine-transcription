@@ -3,5 +3,4 @@
 - [ ] T-007 UploadTranscriber — upload de gravação → Whisper server-side · pri:low · owner:devin · created:2026-11-06 · #audio · epic:mvp
 - [ ] T-008 Modo ditado presencial — UX de narração solo pós-consulta (mono-falante, Web Speech basta) · owner:devin · created:2026-11-06 · #audio · epic:mvp
 - [ ] T-009 Contexto do paciente — anamnese referencia histórico de consultas anteriores (moat de dados) · pri:low · owner:devin · created:2026-11-06 · epic:mvp
-- [ ] T-010 TabAudioTranscriber — transformers.js Whisper (WebGPU→WASM fallback, quantized base, chunks ~5-10s) no stream da aba → lado Paciente · owner:devin · created:2026-11-06 · #audio · epic:mvp
 - [ ] T-011 Fallback tier — gravação local sobe ao server só em baixa confiança → Whisper/Deepgram re-processa · owner:devin · created:2026-11-06 · #audio · epic:mvp
